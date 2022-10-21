@@ -1,5 +1,3 @@
-export const Basic =()=>{
-    return(
-        <div>Basic</div>
-    )
+export const Basic = () => {
+  return <div>Basic</div>
 }
