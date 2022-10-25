@@ -1,8 +1,11 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@faker-js/faker': ^7.6.0
   '@ladle/react': 2.1.2
+  '@tanstack/react-query': ^4.13.0
   '@tanstack/react-table': ^8.5.15
+  '@types/lodash-es': ^4.17.6
   '@types/react': ^18.0.17
   '@types/react-dom': ^18.0.6
   '@typescript-eslint/eslint-plugin': ^5.26.0
@@ -15,6 +18,7 @@ specifiers:
   eslint-plugin-prettier: ^4.0.0
   eslint-plugin-react: ^7.30.0
   eslint-plugin-react-hooks: ^4.5.0
+  lodash-es: ^4.17.21
   prettier: ^2.6.2
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -24,11 +28,15 @@ specifiers:
 
 dependencies:
   '@tanstack/react-table': registry.npmmirror.com/@tanstack/react-table/8.5.15_biqbaboplfbrettd7655fr4n2y
+  lodash-es: registry.npmmirror.com/lodash-es/4.17.21
   react: registry.npmmirror.com/react/18.2.0
   react-dom: registry.npmmirror.com/react-dom/18.2.0_react@18.2.0
 
 devDependencies:
+  '@faker-js/faker': registry.npmmirror.com/@faker-js/faker/7.6.0
   '@ladle/react': registry.npmmirror.com/@ladle/react/2.1.2_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query': registry.npmmirror.com/@tanstack/react-query/4.13.0_biqbaboplfbrettd7655fr4n2y
+  '@types/lodash-es': registry.npmmirror.com/@types/lodash-es/4.17.6
   '@types/react': registry.npmmirror.com/@types/react/18.0.21
   '@types/react-dom': registry.npmmirror.com/@types/react-dom/18.0.6
   '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.40.1_ukgdydjtebaxmxfqp5v5ulh64y
@@ -1689,6 +1697,13 @@ packages:
       - supports-color
     dev: true
 
+  registry.npmmirror.com/@faker-js/faker/7.6.0:
+    resolution: {integrity: sha512-XK6BTq1NDMo9Xqw/YkYyGjSsg44fbNwYRx7QK2CuoQgyy+f1rrTDHoExVM5PsyXCtfl2vs2vVJ0MN0yN6LppRw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@faker-js/faker/-/faker-7.6.0.tgz}
+    name: '@faker-js/faker'
+    version: 7.6.0
+    engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    dev: true
+
   registry.npmmirror.com/@humanwhocodes/config-array/0.10.7:
     resolution: {integrity: sha512-MDl6D6sBsaV452/QSdX+4CXIjZhIcI0PELsxUjk4U828yd58vk3bTIvk/6w5FY+4hIy9sLW0sfrV7K7Kc++j/w==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@humanwhocodes/config-array/-/config-array-0.10.7.tgz}
     name: '@humanwhocodes/config-array'
@@ -1858,6 +1873,33 @@ packages:
       fastq: registry.npmmirror.com/fastq/1.13.0
     dev: true
 
+  registry.npmmirror.com/@tanstack/query-core/4.13.0:
+    resolution: {integrity: sha512-PzmLQcEgC4rl2OzkiPHYPC9O79DFcMGaKsOzDEP+U4PJ+tbkcEP+Z+FQDlfvX8mCwYC7UNH7hXrQ5EdkGlJjVg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@tanstack/query-core/-/query-core-4.13.0.tgz}
+    name: '@tanstack/query-core'
+    version: 4.13.0
+    dev: true
+
+  registry.npmmirror.com/@tanstack/react-query/4.13.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-dI/5hJ/pGQ74P5hxBLC9h6K0/Cap2T3k0ZjjjFLBCNnohDYgl7LNmMopzrRzBHk2mMjf2hgXHIzcKNG8GOZ5hg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@tanstack/react-query/-/react-query-4.13.0.tgz}
+    id: registry.npmmirror.com/@tanstack/react-query/4.13.0
+    name: '@tanstack/react-query'
+    version: 4.13.0
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': registry.npmmirror.com/@tanstack/query-core/4.13.0
+      react: registry.npmmirror.com/react/18.2.0
+      react-dom: registry.npmmirror.com/react-dom/18.2.0_react@18.2.0
+      use-sync-external-store: registry.npmmirror.com/use-sync-external-store/1.2.0_react@18.2.0
+    dev: true
+
   registry.npmmirror.com/@tanstack/react-table/8.5.15_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-9rSvhIFeMpfXksFgQNTWnVoJbkae/U8CkHnHYGWAIB/O0Ca51IKap0Rjp5WkIUVBWxJ7Wfl2y13oY+aWcyM6Rg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@tanstack/react-table/-/react-table-8.5.15.tgz}
     id: registry.npmmirror.com/@tanstack/react-table/8.5.15
@@ -1890,6 +1932,20 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/json5/-/json5-0.0.29.tgz}
     name: '@types/json5'
     version: 0.0.29
+    dev: true
+
+  registry.npmmirror.com/@types/lodash-es/4.17.6:
+    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/lodash-es/-/lodash-es-4.17.6.tgz}
+    name: '@types/lodash-es'
+    version: 4.17.6
+    dependencies:
+      '@types/lodash': registry.npmmirror.com/@types/lodash/4.14.186
+    dev: true
+
+  registry.npmmirror.com/@types/lodash/4.14.186:
+    resolution: {integrity: sha512-eHcVlLXP0c2FlMPm56ITode2AgLMSa6aJ05JTTbYbI+7EMkCEE5qk2E41d5g2lCVTqRe0GnnRFurmlCsDODrPw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.186.tgz}
+    name: '@types/lodash'
+    version: 4.14.186
     dev: true
 
   registry.npmmirror.com/@types/prop-types/15.7.5:
@@ -4172,6 +4228,12 @@ packages:
       p-locate: registry.npmmirror.com/p-locate/5.0.0
     dev: true
 
+  registry.npmmirror.com/lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lodash-es/-/lodash-es-4.17.21.tgz}
+    name: lodash-es
+    version: 4.17.21
+    dev: false
+
   registry.npmmirror.com/lodash.debounce/4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz}
     name: lodash.debounce
@@ -5323,6 +5385,17 @@ packages:
     version: 4.4.1
     dependencies:
       punycode: registry.npmmirror.com/punycode/2.1.1
+    dev: true
+
+  registry.npmmirror.com/use-sync-external-store/1.2.0_react@18.2.0:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz}
+    id: registry.npmmirror.com/use-sync-external-store/1.2.0
+    name: use-sync-external-store
+    version: 1.2.0
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: registry.npmmirror.com/react/18.2.0
     dev: true
 
   registry.npmmirror.com/utils-merge/1.0.1:
