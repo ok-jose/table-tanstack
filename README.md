@@ -5,9 +5,9 @@
 - [ ] 表头设计
 - [ ] 表格设计
 - [ ] 操作列设计
-- [ ] pagination设计
-- [ ] table-filter设计
+- [X] pagination设计
 - [ ] table-selection
+- [ ] table-filter设计
 - [ ] table-summary设计
 - [ ] table-expand
 - [ ] table-fixed
