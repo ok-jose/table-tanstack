@@ -34,7 +34,7 @@ const newPerson = (): Person => {
 export function makeData(...lens: number[]) {
   const makeDataLevel = (depth = 0): Person[] => {
     const len = lens[depth]!
-    return range(len).map((d): Person => {
+    return range(len).map((): Person => {
       return {
         ...newPerson(),
         subRows: lens[depth + 1] ? makeDataLevel(depth + 1) : undefined,
@@ -45,7 +45,7 @@ export function makeData(...lens: number[]) {
   return makeDataLevel()
 }
 
-const data = makeData(1000)
+const data = makeData(1000, 5, 3)
 
 export async function fetchData(options: { pageIndex: number; pageSize: number }) {
   // Simulate some network latency
