@@ -1,13 +1,14 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import {
-  createColumnHelper,
   ColumnDef,
   getCoreRowModel,
   getPaginationRowModel,
+  getExpandedRowModel,
   useReactTable,
+  SortingState,
 } from '@tanstack/react-table'
 import type { TableState } from '@tanstack/react-table'
-import { isEmpty, isBoolean } from 'lodash-es'
+import { isEmpty, isBoolean, get } from 'lodash-es'
 import { TableContext } from '~/context/table-context'
 import { Column, TableProps } from '~/types/table'
 import Thead from '~/thead'
@@ -25,25 +26,51 @@ function Table<T>(props: TableProps<T>) {
     pageCount = -1,
     onPaginationChange,
     rowSelection,
+    expandable,
   } = props
-  const columnHelper = createColumnHelper<T>()
+  const { childrenColumnName = 'subRows', indentSize = 2, onExpand } = expandable || {}
+  const [sorting, setSorting] = useState<SortingState>([])
 
   const loopColumns = useCallback(
-    (columns: Column<T>[]): any[] => {
-      return columns.map((column) => {
-        if (column.children) {
-          return columnHelper.group({
-            header: (column.title || column.dataIndex) as string,
-            columns: loopColumns(column.children),
-          })
-        }
-        // todo 这里的类型转换不太好
-        return columnHelper.accessor(column.dataIndex as unknown as any, {
+    (columns: Column<T>[]): ColumnDef<T>[] => {
+      const resultColumns: ColumnDef<T>[] = []
+      columns.forEach((column, index) => {
+        resultColumns.push({
+          id: column.dataIndex as string,
+          accessorKey: column.dataIndex!,
           header: column.title,
+          cell: ({ row, getValue }) => {
+            const value = getValue() as string
+            let canExpand = false
+            let isExpanded = false
+            if (index === 0) {
+              canExpand = row.getCanExpand()
+              isExpanded = row.getIsExpanded()
+            }
+            return (
+              <div style={{ paddingLeft: `${row.depth * indentSize}rem` }}>
+                <span>
+                  {canExpand && (
+                    <button
+                      onClick={() => {
+                        row.getToggleExpandedHandler()()
+                        onExpand?.(!isExpanded, row.original)
+                      }}
+                    >
+                      {isExpanded ? '[-]' : '[+]'}
+                    </button>
+                  )}
+                </span>
+                <span>{column.render ? column.render(value, row.original, row.index) : value}</span>
+              </div>
+            )
+          },
+          columns: column.children ? loopColumns(column.children) : undefined,
         })
       })
+      return resultColumns
     },
-    [columnHelper],
+    [indentSize, onExpand],
   )
 
   const tableColumns = useMemo<ColumnDef<T>[]>(() => loopColumns(columns), [columns, loopColumns])
@@ -101,10 +128,16 @@ function Table<T>(props: TableProps<T>) {
   }, [onPaginationChange, pageCount, pagination])
 
   const table = useReactTable<T>({
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
     columns: tableColumnsWithOp,
     data,
     ...tableState,
     getCoreRowModel: getCoreRowModel(),
+    getSubRows: (row) => get(row, childrenColumnName),
+    getExpandedRowModel: getExpandedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     ...manualPaginationInfo,
   })
