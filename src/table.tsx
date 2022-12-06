@@ -28,7 +28,13 @@ function Table<T>(props: TableProps<T>) {
     rowSelection,
     expandable,
   } = props
-  const { childrenColumnName = 'subRows', indentSize = 2, onExpand } = expandable || {}
+  const {
+    childrenColumnName = 'subRows',
+    indentSize = 2,
+    onExpand,
+    expandedRowRender,
+    getRowCanExpand,
+  } = expandable || {}
   const [sorting, setSorting] = useState<SortingState>([])
 
   const loopColumns = useCallback(
@@ -44,7 +50,8 @@ function Table<T>(props: TableProps<T>) {
             let canExpand = false
             let isExpanded = false
             if (index === 0) {
-              canExpand = row.getCanExpand()
+              canExpand =
+                row.getCanExpand() && get(row.original, childrenColumnName, [])?.length > 0
               isExpanded = row.getIsExpanded()
             }
             return (
@@ -70,43 +77,60 @@ function Table<T>(props: TableProps<T>) {
       })
       return resultColumns
     },
-    [indentSize, onExpand],
+    [childrenColumnName, indentSize, onExpand],
   )
 
   const tableColumns = useMemo<ColumnDef<T>[]>(() => loopColumns(columns), [columns, loopColumns])
-  const tableColumnsWithOp = useMemo<ColumnDef<T>[]>(() => {
+  const tableColumnsWithOperator = useMemo<ColumnDef<T>[]>(() => {
+    const prefixColumns: ColumnDef<T>[] = []
     if (rowSelection) {
-      return [
-        {
-          id: 'select',
-          header: ({ table }) => (
+      prefixColumns.push({
+        id: 'select',
+        header: ({ table }) => (
+          <IndeterminateCheckbox
+            {...{
+              checked: table.getIsAllRowsSelected(),
+              indeterminate: table.getIsSomeRowsSelected(),
+              onChange: (e) => {
+                table.getToggleAllRowsSelectedHandler()(e)
+              },
+            }}
+          />
+        ),
+        cell: ({ row }) => (
+          <div className='px-1'>
             <IndeterminateCheckbox
               {...{
-                checked: table.getIsAllRowsSelected(),
-                indeterminate: table.getIsSomeRowsSelected(),
-                onChange: (e) => {
-                  table.getToggleAllRowsSelectedHandler()(e)
-                },
+                checked: row.getIsSelected(),
+                indeterminate: row.getIsSomeSelected(),
+                onChange: row.getToggleSelectedHandler(),
               }}
             />
-          ),
-          cell: ({ row }) => (
-            <div className='px-1'>
-              <IndeterminateCheckbox
-                {...{
-                  checked: row.getIsSelected(),
-                  indeterminate: row.getIsSomeSelected(),
-                  onChange: row.getToggleSelectedHandler(),
-                }}
-              />
-            </div>
-          ),
+          </div>
+        ),
+      })
+    } else if (expandedRowRender) {
+      prefixColumns.push({
+        id: 'expander',
+        header: () => null,
+        cell: ({ row }) => {
+          return row.getCanExpand() ? (
+            <button
+              {...{
+                onClick: row.getToggleExpandedHandler(),
+                style: { cursor: 'pointer' },
+              }}
+            >
+              {row.getIsExpanded() ? '👇' : '👉'}
+            </button>
+          ) : (
+            '🔵'
+          )
         },
-        ...tableColumns,
-      ]
+      })
     }
-    return tableColumns
-  }, [rowSelection, tableColumns])
+    return [...prefixColumns, ...tableColumns]
+  }, [expandedRowRender, rowSelection, tableColumns])
 
   const tableState = useMemo(() => {
     const _state = {} as TableState
@@ -132,18 +156,19 @@ function Table<T>(props: TableProps<T>) {
       sorting,
     },
     onSortingChange: setSorting,
-    columns: tableColumnsWithOp,
+    columns: tableColumnsWithOperator,
     data,
     ...tableState,
     getCoreRowModel: getCoreRowModel(),
     getSubRows: (row) => get(row, childrenColumnName),
     getExpandedRowModel: getExpandedRowModel(),
+    getRowCanExpand: getRowCanExpand,
     getPaginationRowModel: getPaginationRowModel(),
     ...manualPaginationInfo,
   })
   return (
     <div>
-      <TableContext.Provider value={{ table: table }}>
+      <TableContext.Provider value={{ table: table, tableProps: props }}>
         <table>
           <Thead<T> />
           <Tbody<T> />

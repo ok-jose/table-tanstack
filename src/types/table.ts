@@ -1,5 +1,5 @@
 import { ReactNode, Key } from 'react'
-import type { PaginationState, OnChangeFn } from '@tanstack/react-table'
+import type { PaginationState, OnChangeFn, Row } from '@tanstack/react-table'
 
 export type RowSelectionType = 'checkbox' | 'radio'
 export type SelectionSelectFn<T> = (
@@ -34,6 +34,9 @@ type ExpandableConfig<T> = {
   indentSize?: number
   // 指定树形结构的列名
   childrenColumnName?: string
+
+  // 是否展示展开图标（如果是树形表格，默认会根据subRows判断）
+  getRowCanExpand?: (record: Row<T>) => boolean
 }
 
 export type TableProps<RecordType> = {

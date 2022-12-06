@@ -45,17 +45,19 @@ export function makeData(...lens: number[]) {
   return makeDataLevel()
 }
 
-const data = makeData(1000, 5, 3)
+const data = makeData(1000)
+const treeData = makeData(1000, 5, 3)
 
-export async function fetchData(options: { pageIndex: number; pageSize: number }) {
+export async function fetchData(options: { pageIndex: number; pageSize: number; tree?: boolean }) {
   // Simulate some network latency
   await new Promise((r) => setTimeout(r, 500))
+  const resultData = options.tree ? treeData : data
 
   return {
-    data: data.slice(
+    data: resultData.slice(
       options.pageIndex * options.pageSize,
       (options.pageIndex + 1) * options.pageSize,
     ),
-    total: data.length,
+    total: resultData.length,
   }
 }
