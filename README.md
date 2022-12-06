@@ -9,7 +9,7 @@
 - [ ] table-selection
 - [ ] table-filter设计
 - [ ] table-summary设计
-- [ ] table-expand
+- [X] table-expand
 - [ ] table-fixed
 - [ ] table-sort设计
-- [ ] table-tree
+- [X] table-tree
