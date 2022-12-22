@@ -15,7 +15,7 @@ import Thead from '~/thead'
 import Tbody from '~/tbody'
 import { Pagination } from '~/pagination'
 
-import './table.css'
+import './table.scss'
 import { IndeterminateCheckbox } from '~/components/indeterminate-checkbox/indeterminate-checkbox'
 
 function Table<T>(props: TableProps<T>) {
@@ -23,7 +23,7 @@ function Table<T>(props: TableProps<T>) {
     data = [],
     columns,
     pagination = true,
-    pageCount = -1,
+    pageCount,
     onPaginationChange,
     rowSelection,
     expandable,
@@ -145,11 +145,11 @@ function Table<T>(props: TableProps<T>) {
       return undefined
     }
     return {
-      pageCount,
+      pageCount: pageCount ? pageCount : data.length / pagination.pageSize,
       onPaginationChange,
       manualPagination: true,
     }
-  }, [onPaginationChange, pageCount, pagination])
+  }, [onPaginationChange, pageCount, pagination, data.length])
 
   const table = useReactTable<T>({
     state: {

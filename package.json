@@ -14,7 +14,9 @@
     "prettier:fix": "npm run prettier -- --write"
   },
   "dependencies": {
+    "@primer/css": "^20.7.1",
     "@tanstack/react-table": "^8.5.15",
+    "antd": "^5.1.0",
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -37,6 +39,7 @@
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0",
     "prettier": "^2.6.2",
+    "sass": "^1.57.1",
     "typescript": "^4.6.4",
     "vite": "^3.1.0",
     "vite-tsconfig-paths": "^3.5.0"

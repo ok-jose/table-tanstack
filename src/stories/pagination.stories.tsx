@@ -55,7 +55,7 @@ const TablePaginationWithControlInner = () => {
       columns={columns}
       data={dataQuery?.data?.data || []}
       pagination={pagination}
-      pageCount={Math.ceil(dataQuery?.data?.data?.length || 0 / pageSize)}
+      pageCount={Math.ceil(dataQuery?.data?.total || 0 / pageSize)}
       onPaginationChange={setPagination}
     />
   )
